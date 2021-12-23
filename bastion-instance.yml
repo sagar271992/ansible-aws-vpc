@@ -1,0 +1,60 @@
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  tasks:
+    #import variable file
+    - name: import bastion setup variable files
+      include_vars: vars/bastion_setup
+    #import vpc variable file
+    - name: import vpc variable files
+      include_vars: vars/output_vars
+
+    #create ec2 key pair 
+    - name: create ec2 key
+      ec2_key:
+        name: my_bastion_host_keypair
+        region: "{{ region }}"
+      register: keyout
+    
+    # and store taht key
+    - name: store login key
+      copy:
+        content: "{{keyout.key.private_key}}"
+        destination: ./bastion-key.pem
+        mode: 0600
+      when: keyout.changed
+
+    #create security group for basten host
+    - name: create sec grp for basten host
+      ec2-group: 
+        name: bastion-host
+        description: allow 22 port from anywhere and all port within sg
+        region: "{{ region }}"
+        vpc_id: "{{ vpc_id }}"
+        #profile: "{{ aws_profile }}"
+        rules:
+        - proto: tcp
+          from_port: 22
+          to_port: 22
+          cidr_ip: "{{ MYIP }}"
+      register: bastionSGout
+   
+    #create ec2-instance basten host
+    - name: creating baston host
+      ec2:
+        key_name: my_bastion_host_keypair
+        instance_type: t2.micro
+        image: "{{ basten_ami }}"
+        wait: yes
+        wait_timeout: 300
+        instance_tags:
+          Name: "bastion-host"
+          Project: "vprofile"
+          Owner: "Dev ops team"
+        exact_count: " 1 "
+        count_tag:
+          Name: "bastion-host"
+          Project: "vprofile"
+          Owner: "Dev ops team"
+        group_id: "{{ bastionSGout.group_id }}"
+      register: bastion-host-out
