@@ -92,7 +92,7 @@
         region: "{{ region }}"
         az: "{{ zone2 }}"
         state: "{{ state }}"
-        cidr : "{{  }}"
+        cidr : "{{ Prisub2Cidr }}"
         map_public: no
         resource_tags:
             Name: vprofle-prisub2
