@@ -10,8 +10,8 @@ Pubsub2Cidr: 172.20.2.0/24
 Pubsub3Cidr: 172.20.3.0/24
 
 Prisub1Cidr: 172.20.4.0/24
-Prisub1Cidr: 172.20.5.0/24
-Prisub1Cidr: 172.20.6.0/24
+Prisub2Cidr: 172.20.5.0/24
+Prisub3Cidr: 172.20.6.0/24
 
 #Region Name
 region: "us-east-2"
