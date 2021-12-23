@@ -25,8 +25,8 @@
       when: keyout.changed
       
     #create security group for basten host  
-    - name: create sec grp for basten host
-      ec2-group: 
+    - name: create security group for basten host 
+      ec2_group:
         name: bastion-host
         description: allow 22 port from anywhere and all port within sg
         region: "{{ region }}"
