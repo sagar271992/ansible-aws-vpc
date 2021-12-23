@@ -43,6 +43,7 @@
     - name: creating baston host
       ec2:
         key_name: my_bastion_host_keypair
+        region: "{{ region }}"
         instance_type: t2.micro
         image: "{{ basten_ami }}"
         wait: yes
