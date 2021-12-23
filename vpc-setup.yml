@@ -116,3 +116,13 @@
     
     #- debug:
         #var: prisub3out
+
+    # module-9 : internet gateway creation for pub subnet
+    - name: internet gateway setup
+      ec2_vpc_igw:
+        vpc_id: "{{ vpcout.vpc.id }}"
+        region: "{{ region }}"
+        state: " {{ state }}"
+        resource_tags:
+            Name: vprofle-IGW
+      register: IGWout
