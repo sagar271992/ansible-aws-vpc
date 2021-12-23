@@ -136,9 +136,9 @@
         resource_tags:
             Name: vprofle-RT
         subnets:
-        - "{{ prisub1out.subnet.id }}"
-        - "{{ prisub2out.subnet.id }}"
-        - "{{ prisub3out.subnet.id }}"
+        - "{{ pubsub1out.subnet.id }}"
+        - "{{ pubsub2out.subnet.id }}"
+        - "{{ pubsub3out.subnet.id }}"
         routes:
         - dest: 0.0.0.0/0
           gateway_id: "{{ IGWout.gateway_id }}"
