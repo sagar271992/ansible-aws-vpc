@@ -4,7 +4,7 @@
   tasks:
       # Import variables files
     - name: import vpc variable files
-      include_vars: var/vpc_setup
+      include_vars: vars/vpc_setup
      
       #create vpc range
     - name: create vprofile vpc
