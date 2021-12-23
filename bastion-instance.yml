@@ -23,8 +23,8 @@
         destination: ./bastion-key.pem
         mode: 0600
       when: keyout.changed
-
-    #create security group for basten host
+      
+    #create security group for basten host  
     - name: create sec grp for basten host
       ec2-group: 
         name: bastion-host
