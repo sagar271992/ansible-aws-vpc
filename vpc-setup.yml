@@ -128,3 +128,18 @@
       register: IGWout
     #- debug:
         #var: IGWout
+    
+    - name: Set up public subnet route table
+      ec2_vpc_route_table:
+        vpc_id: "{{ vpcout.vpc.id }}"
+        region: "{{ region }}"
+        resource_tags:
+            Name: vprofle-RT
+        subnets:
+        - "{{ prisub1out.subnet.id }}"
+        - "{{ prisub2out.subnet.id }}"
+        - "{{ prisub3out.subnet.id }}"
+        routes:
+        - dest: 0.0.0.0/0
+        gateway_id: "{{ IGWout.gateway_id }}"
+      register: pubRTout
