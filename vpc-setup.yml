@@ -128,7 +128,7 @@
       register: IGWout
     #- debug:
         #var: IGWout
-    
+    # module-10 : route table for pub subnet association  
     - name: Set up public subnet route table
       ec2_vpc_route_table:
         vpc_id: "{{ vpcout.vpc.id }}"
@@ -143,3 +143,29 @@
         - dest: 0.0.0.0/0
           gateway_id: "{{ IGWout.gateway_id }}"
       register: pubRTout
+
+    # module11 : NAT gateway creation for private subnet allocate new Elastic IP to it
+    - name: Create new nat gateway and allocate new EIP.
+      ec2_vpc_nat_gateway:
+        state: "{{ state }}"
+        subnet_id: "{{ pubsub1out.subnet.id }}" #make sure delete NAT-G release elastic ip [cost]
+        wait: yes
+        region: "{{ region }}"
+        if_exist_do_not_create: true
+      register: NATGWout
+
+    # module-10 : route table for private subnet association
+    - name: Set up private subnet route table
+      ec2_vpc_route_table:
+        vpc_id: "{{ vpcout.vpc.id }}"
+        region: "{{ region }}"
+        resource_tags:
+            Name: vprofle-Nat-RT
+        subnets:
+        - "{{ prisub1out.subnet.id }}"
+        - "{{ prisub2out.subnet.id }}"
+        - "{{ prisub3out.subnet.id }}"
+        routes:
+        - dest: 0.0.0.0/0
+          gateway_id: "{{ NATGWout.nat_gateway_id }}"
+      register: priRTout
