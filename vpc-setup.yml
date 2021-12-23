@@ -9,11 +9,11 @@
       #create vpc range
     - name: create vprofile vpc
       ec2_vpc_net:
-        name: {{ vpc_name }}
-        cidr_block: {{ vpcCidr }}
-        region: {{ region }}
+        name: "{{ vpc_name }}"
+        cidr_block: "{{ vpcCidr }}"
+        region: "{{ region }}"
         dns_supprots: yes
         dns_hostname: yes
         tenency: default
-        state: {{ state }}
+        state: "{{ state }}"
       register: vpc-out
