@@ -8,7 +8,7 @@
       include_vars: var/vpc_setup
      
       #create vpc range
-    - name: create vpc range
+    - name: create vprofile vpc
       ec2_vpc_net:
         name: {{vpc_name}}
         cidr_block: {{vpcCidr}}
