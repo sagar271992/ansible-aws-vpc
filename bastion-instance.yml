@@ -57,4 +57,4 @@
           Project: "vprofile"
           Owner: "Dev ops team"
         group_id: "{{ bastionSGout.group_id }}"
-      register: bastion-host-out
+      register: bastion_host_out
