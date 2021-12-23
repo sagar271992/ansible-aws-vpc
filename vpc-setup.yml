@@ -16,4 +16,4 @@
         dns_hostname: yes
         tenency: default
         state: "{{ state }}"
-      register: vpc-out
+      register: vpcout
