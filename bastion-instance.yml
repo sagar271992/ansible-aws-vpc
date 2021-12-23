@@ -38,6 +38,8 @@
           to_port: 22
           cidr_ip: "{{ MYIP }}"
       register: bastionSGout
+    - debug:
+        var: bastionSGout
    
     #create ec2-instance basten host
     - name: creating baston host
