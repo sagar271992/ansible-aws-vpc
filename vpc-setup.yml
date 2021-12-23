@@ -28,7 +28,7 @@
         region: "{{ region }}"
         az: "{{ zone1 }}"
         state: "{{ state }}"
-        Cidr: "{{ Pubsub1Cidr }}"
+        cidr : "{{ Pubsub1Cidr }}"
         map_public: yes
         resource_tags:
             Name: vprofle-pubsub1
@@ -36,4 +36,3 @@
     
     - debug:
         var: pubsub1out
-        
