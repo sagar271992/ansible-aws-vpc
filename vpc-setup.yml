@@ -57,7 +57,7 @@
     - name: create pubilc subnet in zone 3
       ec2_vpc_subnet: 
         vpc_id: "{{ vpcout.vpc.id }}"
-        region4: "{{ region }}"
+        region: "{{ region }}"
         az: "{{ zone3 }}"
         state: "{{ state }}"
         cidr : "{{ Pubsub3Cidr }}"
@@ -185,3 +185,23 @@
        - pubRTout
        - NATGWout
        - priRTout
+#you can store all these varibale into a file or you want to use instently use fact module
+# fact: varible store use module which can fact for us to use runtime
+    - set_fact: 
+        vpc-id: "{{ vpcout.vpc.id }}"
+        pubsub1: "{{ pubsub1out.subnet.id }}"
+        pubsub2: "{{ pubsub2out.subnet.id }}"
+        pubsub3: "{{ pubsub3out.subnet.id }}"
+        prisub1: "{{ prisub1out.subnet.id }}"
+        prisub2: "{{ prisub2out.subnet.id }}"
+        prisub3: "{{ prisub3out.subnet.id }}"
+        ig-id: "{{ IGWout.gateway_id }}"
+        pub-rt-id: "{{ pubRTout.route_table.id }}"
+        nat-gw-id: "{{ NATGWout.nat_gateway_id }}"
+        pri-rt-id: "{{ priRTout.route_table.id }}"
+        cacheable: yes #variable added to fact cache
+    
+    - name: create variable file
+      copy: 
+        content: " vpc-id: {{ vpcout.vpc.id }} \n pubsub1: {{ pubsub1out.subnet.id }} \n pubsub2: {{ pubsub2out.subnet.id }} \n pubsub3: {{ pubsub3out.subnet.id }} \n prisub1: {{ prisub1out.subnet.id }} \n prisub2: {{ prisub2out.subnet.id }} \n prisub3: {{ prisub3out.subnet.id }} \n ig-id: {{ IGWout.gateway_id }} \n pub-rt-id: {{ pubRTout.route_table.id }} \n nat-gw-id: {{ NATGWout.nat_gateway_id }} \n pri-rt-id: {{ priRTout.route_table.id }} "
+        dest: vars/output_vars
