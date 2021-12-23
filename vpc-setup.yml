@@ -122,7 +122,9 @@
       ec2_vpc_igw:
         vpc_id: "{{ vpcout.vpc.id }}"
         region: "{{ region }}"
-        state: " {{ state }}"
+        state: "{{ state }}"
         resource_tags:
             Name: vprofle-IGW
       register: IGWout
+    #- debug:
+        #var: IGWout
