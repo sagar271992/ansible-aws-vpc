@@ -3,10 +3,13 @@
   gather_facts: False
   tasks:
 
-    #import vpc variable file
+    #import vpc out variable file
     - name: import vpc variable files
       include_vars: vars/output_vars
-
+    
+    # Import variables files
+    - name: import vpc variable files
+      include_vars: vars/vpc_setup
     #create ec2 key pair 
     - name: create ec2 key
       ec2_key:
