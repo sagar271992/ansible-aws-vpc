@@ -2,8 +2,8 @@
   connection: local
   gather_facts: False
   tasks:
-
-    #import vpc out variable file
+    
+    # Import vpc variables files
     - name: import vpc variable files
       include_vars: vars/vpc_output_vars
     
