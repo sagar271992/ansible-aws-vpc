@@ -22,7 +22,7 @@
     - name: store login key
       copy:
         content: "{{ keyout.key.private_key }}"
-        destination: ./vprofile_stack_keypair.pem
+        destination: ./vpro_stack_keypair.pem
         mode: 0600
       when: keyout.changed
 
