@@ -72,4 +72,4 @@
         backup: no
         insertafter: EOF
         block: |
-          BastionSGid: {{bastionSGout.group_id}}
+          BastionSGid: {{ bastionSGout.group_id }}
