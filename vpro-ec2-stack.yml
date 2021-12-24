@@ -3,9 +3,9 @@
   gather_facts: False
 
   tasks:
-    # Import variables files
+    # Import vpc variables files
     - name: import vpc variable files
-      include_vars: vars/vpc_setup
+      include_vars: vars/vpc_output_vars
     
     #import vpro-stac-setup variable file
     - name: import vpro stack variable file
@@ -31,9 +31,9 @@
       ec2_group:
         name: vprofile_ELB_SG
         description: allow all ports from everywhere and and all port within sg
+        region: "{{ region }}"
         vpc_id: "{{ vpc_id }}"
         #profile: "{{ aws_profile }}"
-        region: "{{ region }}"
         rules:
         - proto: tcp
           from_port: 80
