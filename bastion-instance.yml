@@ -69,7 +69,7 @@
     - name: Insert/Update "BastionSGid" in vars/vpc-output_vars
       blockinfile:
         path: vars/vpc-output_vars
-        backup: no
+        backup: yes
         block: |
-          "BastionSGid: {{ \n BastionSG_out.group_id \n }}"
+          BastionSGid: {{BastionSG_out.group_id}}
            
