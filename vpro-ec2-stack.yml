@@ -79,4 +79,3 @@
         - proto: all
           group_id: "{{ vprofile_stack_SGout.group_id }}"
           rule_desc: allow all all traffic internlly
-      register: vprofile_stack_SGout
