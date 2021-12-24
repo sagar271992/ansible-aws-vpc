@@ -10,5 +10,5 @@
  nat_gw_id: nat-04da24230c1e123c6 
  pri_rt_id: rtb-0c1efcb2df2b7adea 
 # BEGIN ANSIBLE MANAGED BLOCK
-BastionSGid: sg-0c6c7d25ef3fe48a0
+ BastionSGid: sg-0c6c7d25ef3fe48a0
 # END ANSIBLE MANAGED BLOCK
