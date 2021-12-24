@@ -70,6 +70,6 @@
       blockinfile:
         path: vars/vpc_output_vars
         backup: no
-        block: |
-          BastionSGid: {{ bastionSGout.group_id }}
+        block: ""
+        BastionSGid: {{ \n bastionSGout.group_id \n }}
            
