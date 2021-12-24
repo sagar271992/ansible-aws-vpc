@@ -5,20 +5,26 @@
   tasks:
 
     #import vpc out variable file
-    - name: import vpc variable files
+    - name: import vpc out variable files
       include_vars: vars/vpc_output_vars
+    
+    #import vpro-stac-setup variable file
+    - name: import vpro stack variable file
+      include_vars: vars/vpro_stack_setup
+
+    # we need a key to login to our instances
+    - name: create ec2 key
+      ec2_key:
+        name: vprofile_stack_keypair
+        region: "{{ region }}"
+      register: keyout
+    
+    # and store taht key
+    - name: store login key
+      copy:
+        content: "{{ keyout.key.private_key }}"
+        destination: ./vprofile_stack_keypair.pem
+        mode: 0600
+      when: keyout.changed
 
     #
-    - name: Provision a set of instances
-      ec2:
-         key_name: my_key
-         group: test
-         instance_type: t2.micro
-         image: "{{ ami_id }}"
-         wait: true
-         exact_count: 5
-         count_tag:
-            Name: Demo
-         instance_tags:
-            Name: Demo
-      register: ec2out
