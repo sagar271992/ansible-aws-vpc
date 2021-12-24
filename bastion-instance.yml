@@ -5,7 +5,7 @@
 
     #import vpc out variable file
     - name: import vpc variable files
-      include_vars: vars/output_vars
+      include_vars: vars/vpc_output_vars
     
     # Import variables files
     - name: import vpc variable files
