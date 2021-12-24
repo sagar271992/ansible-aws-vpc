@@ -68,7 +68,7 @@
     #store the required variables in vpc_output_vars
     - name: Insert/Update "BastionSGid" in vars/vpc-output_vars
       blockinfile:
-        path: vars/vpc-output_vars
+        path: vars/vpc_output_vars
         backup: no
         block: |
           BastionSGid: {{ bastionSGout.group_id }}
