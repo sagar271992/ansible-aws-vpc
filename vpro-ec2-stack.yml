@@ -79,3 +79,116 @@
         - proto: all
           group_id: "{{ vprofile_stack_SGout.group_id }}"
           rule_desc: allow all all traffic internlly
+
+    # create loadbalancer instance Nginx
+    - name: create nginx LB instance webo1
+      ec2:
+        key_name: vprofile_stack_keypair
+        region: "{{ region }}"
+        instance_type: t2.micro
+        image: "{{ nginx_ami }}"
+        wait: yes
+        wait_timeout: 300
+        instance_tags:
+          Name: "web01-nginx"
+          Project: "vprofile"
+          Owner: "Dev ops team"
+        exact_count: " 1 "
+        count_tag:
+          Name: "web01-nginx"
+          Project: "vprofile"
+          Owner: "Dev ops team"
+        group_id: "{{ vprofile_stack_SGout.group_id }}"
+        vpc_subnet_id: "{{ prisub1 }}"
+      register: web01_nginx_out
+
+     # create tomcat instance app01
+    - name: create tomcat instance app01
+      ec2:
+        key_name: vprofile_stack_keypair
+        region: "{{ region }}"
+        instance_type: t2.micro
+        image: "{{ tomcat_ami }}"
+        wait: yes
+        wait_timeout: 300
+        instance_tags:
+          Name: "app01-tomcat"
+          Project: "vprofile"
+          Owner: "Dev ops team"
+        exact_count: " 1 "
+        count_tag:
+          Name: "app01-tomcat"
+          Project: "vprofile"
+          Owner: "Dev ops team"
+        group_id: "{{ vprofile_stack_SGout.group_id }}"
+        vpc_subnet_id: "{{ prisub1 }}"
+      register: app01_tomcat_out
+
+     # create memcache instance mc01
+    - name: create memcache instance mc01
+      ec2:
+        key_name: vprofile_stack_keypair
+        region: "{{ region }}"
+        instance_type: t2.micro
+        image: "{{ memcache_ami }}"
+        wait: yes
+        wait_timeout: 300
+        instance_tags:
+          Name: "mc01-memcache"
+          Project: "vprofile"
+          Owner: "Dev ops team"
+        exact_count: " 1 "
+        count_tag:
+          Name: "mc01-memcache"
+          Project: "vprofile"
+          Owner: "Dev ops team"
+        group_id: "{{ vprofile_stack_SGout.group_id }}"
+        vpc_subnet_id: "{{ prisub1 }}"
+      register: mc01_memcache_out
+
+     # create rabbitMQ instance rmq01
+    - name: create RMQ instance rmq01
+      ec2:
+        key_name: vprofile_stack_keypair
+        region: "{{ region }}"
+        instance_type: t2.micro
+        image: "{{ rmq_ami }}"
+        wait: yes
+        wait_timeout: 300
+        instance_tags:
+          Name: "rmq01-RMQ"
+          Project: "vprofile"
+          Owner: "Dev ops team"
+        exact_count: " 1 "
+        count_tag:
+          Name: "rmq01-RMQ"
+          Project: "vprofile"
+          Owner: "Dev ops team"
+        group_id: "{{ vprofile_stack_SGout.group_id }}"
+        vpc_subnet_id: "{{ prisub1 }}"
+      register: rmq01_RMQ_out
+
+     # create mysql instance db01
+    - name: create mysql instance db01
+      ec2:
+        key_name: vprofile_stack_keypair
+        region: "{{ region }}"
+        instance_type: t2.micro
+        image: "{{ mysql_ami }}"
+        wait: yes
+        wait_timeout: 300
+        instance_tags:
+          Name: "db01-mysql"
+          Project: "vprofile"
+          Owner: "Dev ops team"
+        exact_count: " 1 "
+        count_tag:
+          Name: "db01-mysql"
+          Project: "vprofile"
+          Owner: "Dev ops team"
+        group_id: "{{ vprofile_stack_SGout.group_id }}"
+        vpc_subnet_id: "{{ prisub1 }}"
+      register: db01_mysql_out
+    - debug:
+      var: db01_mysql_out
+

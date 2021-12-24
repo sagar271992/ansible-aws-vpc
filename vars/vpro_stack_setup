@@ -2,7 +2,7 @@ nginx_ami: ami-023d39cbc16614424
 tomcat_ami: ami-023d39cbc16614424
 memcache_ami: ami-023d39cbc16614424
 rmq_ami: ami-023d39cbc16614424
-my_sql: ami-023d39cbc16614424
+mysql_ami: ami-023d39cbc16614424
 
 #region variable
 region: us-east-2
