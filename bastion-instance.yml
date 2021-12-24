@@ -66,8 +66,10 @@
       register: bastion_host_out
 
     #store the required variables in vpc_output_vars
-    - name: storing variable values to vpc_output_vars
-      copy: 
-        content: "\n bastionSGid: {{ bastionSGout.group_id }} \n"
-        dest: vars/vpc_output_vars
+    - name: Insert/Update "BastionSGid" in vars/vpc-output_vars
+      blockinfile:
+        path: vars/vpc-output_vars
+        backup: no
+        block: |
+          BastionSGid: {{ bastionSGout.group_id }}
            

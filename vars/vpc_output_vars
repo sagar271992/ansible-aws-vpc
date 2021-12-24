@@ -9,4 +9,3 @@
  pub_rt_id: rtb-0c91057bb4412557c 
  nat_gw_id: nat-04da24230c1e123c6 
  pri_rt_id: rtb-0c1efcb2df2b7adea 
- bastionSGid: "sg-0c6c7d25ef3fe48a0"
