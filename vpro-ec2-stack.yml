@@ -4,14 +4,13 @@
 
   tasks:
     
-    # Import vpc variables files
-    - name: import vpc variable files
-      include_vars: vars/vpc_output_vars
-           
-  
-    #import vpro-stac-setup variable file
+   #import vpro-stac-setup variable file
     - name: import vpro stack variable file
       include_vars: vars/vpro_stack_setup
+   
+   # Import vpc variables files
+    - name: import vpc variable files
+      include_vars: vars/vpc_output_vars
 
     # we need a key to login to our instances
     - name: create ec2 key
