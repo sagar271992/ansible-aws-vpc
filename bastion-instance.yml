@@ -63,3 +63,11 @@
         group_id: "{{ bastionSGout.group_id }}"
         vpc_subnet_id: "{{  pubsub1 }}"
       register: bastion_host_out
+
+    #store the required variables in vpc_output_vars
+    - name: storing variable values to vpc_output_vars
+      blockinfile:
+        path: vars/vpc_out_vars
+        backup: yes
+        block: |
+           bastionSGid: "{{ bastionSGout.group_id }}"

@@ -27,7 +27,7 @@
         mode: 0600
       when: keyout.changed
 
-    #create load balancer security group
+    #create security group load balancer 
     - name: load balancer security group
       ec2_group:
         name: vprofile_ELB_SG
@@ -42,3 +42,41 @@
           cidr_ip: 0.0.0.0/0
           rule_desc: allow all on port 80
       register: vprofile_ELB_SGout
+
+    #create security group ec2 instances
+    - name: vprofile stack security group
+      ec2_group:
+        name: vprofile_stack_SG
+        description: allow port 22 from everywhere and and all port within sg
+        vpc_id: "{{ vpc_id }}"
+        #profile: "{{ aws_profile }}"
+        region: "{{ region }}"
+        purge_rules: no
+        rules:
+        - proto: tcp
+          from_port: 80
+          to_port: 80
+          group_id: "{{ vprofile_ELB_SGout.group_id }}"
+          rule_desc: ELB allow all on port 80
+
+        - proto: tcp
+          from_port: 22
+          to_port: 22
+          group_id: "{{ bastionSGid }}"
+          rule_desc: bastion allow all on port 22
+      register: vprofile_stack_SGout
+    
+    #create security group for ec2 instances to talk each other
+    - name: update security group with its own id
+      ec2_group:
+        name: vprofile_stack_SG
+        description: allow port 22 from everywhere and and all port within sg
+        vpc_id: "{{ vpc_id }}"
+        #profile: "{{ aws_profile }}"
+        region: "{{ region }}"
+        purge_rules: no
+        rules:
+        - proto: all
+          group_id: "{{ vprofile_stack_SGout.group_id }}"
+          rule_desc: allow all all traffic internlly
+      register: vprofile_stack_SGout
