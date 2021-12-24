@@ -4,8 +4,8 @@
 
   tasks:
 
-    #import vpc out variable file
-    - name: import vpc out variable files
+     #import vpc out variable files
+    - name: import vpc variable files
       include_vars: vars/vpc_output_vars
     
     #import vpro-stac-setup variable file
