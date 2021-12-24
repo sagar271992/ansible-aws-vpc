@@ -189,6 +189,7 @@
         group_id: "{{ vprofile_stack_SGout.group_id }}"
         vpc_subnet_id: "{{ prisub1 }}"
       register: db01_mysql_out
+    
     - debug:
-      var: db01_mysql_out
+        var: db01_mysql_out
 
