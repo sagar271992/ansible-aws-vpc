@@ -2,9 +2,7 @@
   connection: local
   gather_facts: False
   tasks:
-    #import variable file
-    - name: import bastion setup variable files
-      include_vars: vars/bastion_setup
+
     #import vpc variable file
     - name: import vpc variable files
       include_vars: vars/output_vars
@@ -25,7 +23,7 @@
       when: keyout.changed
       
     #create security group for basten host  
-    - name: create security group for basten host 
+    - name: create security group for bastion host 
       ec2_group:
         name: bastion-host
         description: allow 22 port from anywhere and all port within sg
@@ -38,16 +36,16 @@
           to_port: 22
           cidr_ip: "{{ MYIP }}"
       register: bastionSGout
-    - debug:
-        var: bastionSGout
+    #- debug:
+        #var: bastionSGout
    
     #create ec2-instance basten host
-    - name: creating baston host
+    - name: creating bastion host
       ec2:
         key_name: my_bastion_host_keypair
         region: "{{ region }}"
         instance_type: t2.micro
-        image: "{{ basten_ami }}"
+        image: "{{ bastion_ami }}"
         wait: yes
         wait_timeout: 300
         instance_tags:
