@@ -27,4 +27,18 @@
         mode: 0600
       when: keyout.changed
 
-    #
+    #create load balancer security group
+    - name: load balancer security group
+      ec2_group:
+        name: vprofile_ELB_SG
+        description: allow all ports from everywhere and and all port within sg
+        vpc_id: "{{ vpc_id }}"
+        #profile: "{{ aws_profile }}"
+        region: "{{ region }}"
+        rules:
+        - proto: tcp
+          from_port: 80
+          to_port: 80
+          cidr_ip: 0.0.0.0/0
+          rule_desc: allow all on port 80
+      register: vprofile_ELB_SGout
