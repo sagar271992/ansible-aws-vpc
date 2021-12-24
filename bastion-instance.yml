@@ -70,6 +70,5 @@
       blockinfile:
         path: vars/vpc_output_vars
         backup: no
-        block: 
-          BastionSGid: {{ bastionSGout.group_id }}
-           
+        block: |
+          BastionSGid: {{BastionSG_out.group_id}}
