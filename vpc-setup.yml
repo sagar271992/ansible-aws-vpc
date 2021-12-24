@@ -203,5 +203,5 @@
     
     - name: create variable file
       copy: 
-        content: " vpc_id: {{ vpcout.vpc.id }} \n pubsub1: {{ pubsub1out.subnet.id }} \n pubsub2: {{ pubsub2out.subnet.id }} \n pubsub3: {{ pubsub3out.subnet.id }} \n prisub1: {{ prisub1out.subnet.id }} \n prisub2: {{ prisub2out.subnet.id }} \n prisub3: {{ prisub3out.subnet.id }} \n ig_id: {{ IGWout.gateway_id }} \n pub_rt_id: {{ pubRTout.route_table.id }} \n nat_gw_id: {{ NATGWout.nat_gateway_id }} \n pri_rt_id: {{ priRTout.route_table.id }} "
+        content: " vpc_id: {{ vpcout.vpc.id }} \n pubsub1: {{ pubsub1out.subnet.id }} \n pubsub2: {{ pubsub2out.subnet.id }} \n pubsub3: {{ pubsub3out.subnet.id }} \n prisub1: {{ prisub1out.subnet.id }} \n prisub2: {{ prisub2out.subnet.id }} \n prisub3: {{ prisub3out.subnet.id }} \n ig_id: {{ IGWout.gateway_id }} \n pub_rt_id: {{ pubRTout.route_table.id }} \n nat_gw_id: {{ NATGWout.nat_gateway_id }} \n pri_rt_id: {{ priRTout.route_table.id \n }} "
         dest: vars/vpc_output_vars
