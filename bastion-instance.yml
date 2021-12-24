@@ -70,5 +70,6 @@
       blockinfile:
         path: vars/vpc_output_vars
         backup: no
+        insertafter: EOF
         block: |
-         " \n BastionSGid: {{bastionSGout.group_id}} \n "
+          BastionSGid: {{bastionSGout.group_id}}
