@@ -188,7 +188,7 @@
 #you can store all these varibale into a file or you want to use instently use fact module
 # fact: varible store use module which can fact for us to use runtime
     
-    - set_fact: 
+    - set_fact:
         vpc_id: "{{ vpcout.vpc.id }}"
         pubsub1: "{{ pubsub1out.subnet.id }}"
         pubsub2: "{{ pubsub2out.subnet.id }}"
