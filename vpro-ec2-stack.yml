@@ -18,6 +18,8 @@
         name: vprofile_stack_keypair
         region: "{{ region }}"
       register: keyout
+    - debug:
+      var: keyout
     
     # and store taht key
     - name: store login key
@@ -228,7 +230,7 @@
     #copy login key
     - name: copy login key to provision stack
       copy:
-        source: vpro_stack_keypair.pem
+        source: ./vpro_stack_keypair.pem
         dest: provision-stack/vpro_stack_keypair.pem
         mode: 0400
 
