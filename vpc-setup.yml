@@ -173,18 +173,19 @@
     
     #- debug:
         #var: "{{ item }}"
-      loop:
-       - vpcout
-       - pubsub1out
-       - pubsub2out
-       - pubsub3out
-       - prisub1out
-       - prisub2out
-       - prisub3out
-       - IGWout
-       - pubRTout
-       - NATGWout
-       - priRTout
+      #loop:
+       #- vpcout
+       #- pubsub1out
+       #- pubsub2out
+       #- pubsub3out
+       #- prisub1out
+       #- prisub2out
+       #- prisub3out
+       #- IGWout
+       #- pubRTout
+       #- NATGWout
+       #- priRTout
+       #above will print var value on console
 #you can store all these varibale into a file or you want to use instently use fact module
 # fact: varible store use module which can fact for us to use runtime
     
