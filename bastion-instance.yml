@@ -10,19 +10,21 @@
     # Import variables files
     - name: import vpc variable files
       include_vars: vars/vpc_setup
-      
-    #create ec2 key pair 
-    - name: create ec2 key
+    
+    # we need a key to login to our instances
+    - name: create ec2 bastion host login key
       ec2_key:
-        name: my_bastion_host_keypair
+        name: bastion_keypair
         region: "{{ region }}"
       register: keyout
+    #- debug:
+       # var: keyout
     
-    # and store taht key
-    - name: store login key
+    # and store that key
+    - name: Save private key into file bastion-keypair.pem
       copy:
         content: "{{ keyout.key.private_key }}"
-        destination: ./bastion-key.pem
+        dest: "./bastion-keypair.pem"
         mode: 0600
       when: keyout.changed
       

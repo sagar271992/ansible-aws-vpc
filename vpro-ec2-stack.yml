@@ -18,8 +18,8 @@
         name: vprofile_stack_keypair
         region: "{{ region }}"
       register: keyout
-    - debug:
-        var: keyout
+    #- debug:
+       # var: keyout
     
     # and store that key
     - name: Save private key into file loginkey_vpro.pem
@@ -192,8 +192,8 @@
         vpc_subnet_id: "{{ prisub1 }}"
       register: db01_mysql_out
     
-    - debug:
-        var: db01_mysql_out
+    #- debug:
+       # var: db01_mysql_out
 
     # creating load balancers
     - local_action:

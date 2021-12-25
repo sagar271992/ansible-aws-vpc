@@ -18,8 +18,8 @@
         state: "{{ state }}"
       register: vpcout
     
-    - debug:
-        var: vpcout
+    #- debug:
+        #var: vpcout
 
     # module-2 : public subnet 1 creation
     - name: create pubic subnet in zone 1
@@ -171,8 +171,8 @@
           gateway_id: "{{ NATGWout.nat_gateway_id }}"
       register: priRTout
     
-    - debug:
-        var: "{{ item }}"
+    #- debug:
+        #var: "{{ item }}"
       loop:
        - vpcout
        - pubsub1out
