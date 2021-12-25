@@ -27,7 +27,7 @@
         content: "{{ keyout.key.private_key }}"
         dest: "./vpro_stack_keypair.pem"
         mode: 0600
-      when: vprokey_out.changed
+      when: keyout.changed
 
     #create security group load balancer 
     - name: load balancer security group
