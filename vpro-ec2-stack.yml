@@ -22,12 +22,12 @@
         var: keyout
     
     # and store that key
-    - name: store login key
+    - name: Save private key into file loginkey_vpro.pem
       copy:
         content: "{{ keyout.key.private_key }}"
-        destination: ./vpro_stack_keypair.pem
+        dest: "./vpro_stack_keypair.pem"
         mode: 0600
-      when: keyout.changed
+      when: vprokey_out.changed
 
     #create security group load balancer 
     - name: load balancer security group
