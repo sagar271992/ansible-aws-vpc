@@ -241,12 +241,12 @@
         create: yes
         backup: no
         block: |
-          web01-ip ansible_host={{ web01_nginx_out.tagged_instances[0].private_ip }}
-          app01-ip ansible_host={{ app01_tomcat_out.tagged_instances[0].private_ip }}
-          db01-ip ansible_host={{ db01_mysql_out.tagged_instances[0].private_ip }}
-          rmq01-ip ansible_host={{ rmq01_RMQ_out.tagged_instances[0].private_ip }}
-          mc01-ip ansible_host={{ mc01_memcache_out.tagged_instances[0].private_ip }}
-          ctrl ansible_host=127.0.0.1 ansible_connection=local
+          web01 ansible_host={{ web01_nginx_out.tagged_instances[0].private_ip }}
+          app01 ansible_host={{ app01_tomcat_out.tagged_instances[0].private_ip }}
+          db01 ansible_host={{ db01_mysql_out.tagged_instances[0].private_ip }}
+          rmq01 ansible_host={{ rmq01_RMQ_out.tagged_instances[0].private_ip }}
+          mc01 ansible_host={{ mc01_memcache_out.tagged_instances[0].private_ip }}
+          cntl ansible_host=127.0.0.1 ansible_connection=local
 
           [ websrvgrp ]
            web01
@@ -264,14 +264,14 @@
           mc01
 
           [ ctrlsrvgrp ]
-          ctrl01
+          cntl01
 
           [stack_inst:children]
           websrvgrp
           app01
           db01
           rmq01
-          ctrl01
+          ctrl
 
           [stack_inst:vars]
           ansible_user=ubuntu
