@@ -92,12 +92,12 @@
         wait: yes
         wait_timeout: 300
         instance_tags:
-          Name: "web01-nginx"
+          Name: "web01"
           Project: "vprofile"
           Owner: "Dev ops team"
         exact_count: " 1 "
         count_tag:
-          Name: "web01-nginx"
+          Name: "web01"
           Project: "vprofile"
           Owner: "Dev ops team"
         group_id: "{{ vprofile_stack_SGout.group_id }}"
@@ -114,12 +114,12 @@
         wait: yes
         wait_timeout: 300
         instance_tags:
-          Name: "app01-tomcat"
+          Name: "app01"
           Project: "vprofile"
           Owner: "Dev ops team"
         exact_count: " 1 "
         count_tag:
-          Name: "app01-tomcat"
+          Name: "app01"
           Project: "vprofile"
           Owner: "Dev ops team"
         group_id: "{{ vprofile_stack_SGout.group_id }}"
@@ -136,12 +136,12 @@
         wait: yes
         wait_timeout: 300
         instance_tags:
-          Name: "mc01-memcache"
+          Name: "mc01"
           Project: "vprofile"
           Owner: "Dev ops team"
         exact_count: " 1 "
         count_tag:
-          Name: "mc01-memcache"
+          Name: "mc01"
           Project: "vprofile"
           Owner: "Dev ops team"
         group_id: "{{ vprofile_stack_SGout.group_id }}"
@@ -158,12 +158,12 @@
         wait: yes
         wait_timeout: 300
         instance_tags:
-          Name: "rmq01-RMQ"
+          Name: "rmq01"
           Project: "vprofile"
           Owner: "Dev ops team"
         exact_count: " 1 "
         count_tag:
-          Name: "rmq01-RMQ"
+          Name: "rmq01"
           Project: "vprofile"
           Owner: "Dev ops team"
         group_id: "{{ vprofile_stack_SGout.group_id }}"
@@ -180,12 +180,12 @@
         wait: yes
         wait_timeout: 300
         instance_tags:
-          Name: "db01-mysql"
+          Name: "db01"
           Project: "vprofile"
           Owner: "Dev ops team"
         exact_count: " 1 "
         count_tag:
-          Name: "db01-mysql"
+          Name: "db01"
           Project: "vprofile"
           Owner: "Dev ops team"
         group_id: "{{ vprofile_stack_SGout.group_id }}"
@@ -221,11 +221,11 @@
         create: yes
         backup: no
         block: |
-          web01-ip: {{ web01_nginx_out.tagged_instances[0].private_ip }}
-          app01-ip: {{ app01_tomcat_out.tagged_instances[0].private_ip }}
-          db01-ip: {{ db01_mysql_out.tagged_instances[0].private_ip }}
-          rmq01-ip: {{ rmq01_RMQ_out.tagged_instances[0].private_ip }}
-          mc01-ip: {{ mc01_memcache_out.tagged_instances[0].private_ip }}
+          web01_ip: {{ web01_nginx_out.tagged_instances[0].private_ip }}
+          app01_ip: {{ app01_tomcat_out.tagged_instances[0].private_ip }}
+          db01_ip: {{ db01_mysql_out.tagged_instances[0].private_ip }}
+          rmq01_ip: {{ rmq01_RMQ_out.tagged_instances[0].private_ip }}
+          mc01_ip: {{ mc01_memcache_out.tagged_instances[0].private_ip }}
     
     #copy login key
     - name: copy login key to provision stack
@@ -263,15 +263,16 @@
           [ mcsrvgrp ]
           mc01
 
-          [ ctrlsrvgrp ]
-          cntl01
+          [ control ]
+          cntl
 
           [stack_inst:children]
           websrvgrp
-          app01
-          db01
-          rmq01
-          ctrl
+          appsrvgrp
+          dbsrvgrp
+          rmqsrvgrp
+          mcsrvgrp
+          control
 
           [stack_inst:vars]
           ansible_user=ubuntu
