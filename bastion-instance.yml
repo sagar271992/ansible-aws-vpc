@@ -48,7 +48,7 @@
     #create ec2-instance basten host
     - name: creating bastion host
       ec2:
-        key_name: my_bastion_host_keypair
+        key_name: bastion_keypair
         region: "{{ region }}"
         instance_type: t2.micro
         image: "{{ bastion_ami }}"
