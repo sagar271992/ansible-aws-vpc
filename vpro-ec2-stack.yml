@@ -50,9 +50,9 @@
       ec2_group:
         name: vprofile_stack_SG
         description: allow port 22 from everywhere and and all port within sg
+        region: "{{ region }}"
         vpc_id: "{{ vpc_id }}"
         #profile: "{{ aws_profile }}"
-        region: "{{ region }}"
         purge_rules: no
         rules:
         - proto: tcp
