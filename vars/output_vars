@@ -1,0 +1,11 @@
+ vpc_id: vpc-01b7c1fa265518506 
+ pubsub1: subnet-07ecf054fdfe84633 
+ pubsub2: subnet-0b387a6d20387109c 
+ pubsub3: subnet-02897c2d969966cc0 
+ prisub1: subnet-0164508f61fe6ec9d 
+ prisub2: subnet-080d06b35da10734f 
+ prisub3: subnet-07c5ec7f4f4f86d72 
+ ig_id: igw-01d6eee482aa75683 
+ pub_rt_id: rtb-0d381f2d12495e8d4 
+ nat_gw_id: nat-038d5495624fc0797 
+ pri_rt_id: rtb-066682a742950d4ae 
