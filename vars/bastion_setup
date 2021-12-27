@@ -1,5 +1,0 @@
-#insted of using normal ami for basten use cis from marketplace
-
-basten_ami: ami-002068ed284fb165b
-region: us-east-2
-MYIP: 103.211.60.200/32

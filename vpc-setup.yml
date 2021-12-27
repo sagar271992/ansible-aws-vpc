@@ -18,8 +18,8 @@
         state: "{{ state }}"
       register: vpcout
     
-    - debug:
-        var: vpcout
+    #- debug:
+        #var: vpcout
 
     # module-2 : public subnet 1 creation
     - name: create pubic subnet in zone 1
@@ -31,7 +31,7 @@
         cidr : "{{ Pubsub1Cidr }}"
         map_public: yes
         resource_tags:
-            Name: vprofle-pubsub1
+            Name: vprofile-pubsub1
       register: pubsub1out
     
     #- debug:
@@ -47,7 +47,7 @@
         cidr : "{{ Pubsub2Cidr }}"
         map_public: yes
         resource_tags:
-            Name: vprofle-pubsub2
+            Name: vprofile-pubsub2
       register: pubsub2out
     
     #- debug:
@@ -63,7 +63,7 @@
         cidr : "{{ Pubsub3Cidr }}"
         map_public: yes
         resource_tags:
-            Name: vprofle-pubsub3
+            Name: vprofile-pubsub3
       register: pubsub3out
     
     #- debug:
@@ -79,7 +79,7 @@
         cidr : "{{ Prisub1Cidr }}"
         map_public: no
         resource_tags:
-            Name: vprofle-prisub1
+            Name: vprofile-prisub1
       register: prisub1out
     
     #- debug:
@@ -95,7 +95,7 @@
         cidr : "{{ Prisub2Cidr }}"
         map_public: no
         resource_tags:
-            Name: vprofle-prisub2
+            Name: vprofile-prisub2
       register: prisub2out
     
     #- debug:
@@ -111,7 +111,7 @@
         cidr : "{{ Prisub3Cidr }}"
         map_public: no
         resource_tags:
-            Name: vprofle-prisub3
+            Name: vprofile-prisub3
       register: prisub3out
     
     #- debug:
@@ -124,7 +124,7 @@
         region: "{{ region }}"
         state: "{{ state }}"
         resource_tags:
-            Name: vprofle-IGW
+            Name: vprofile-IGW
       register: IGWout
     #- debug:
         #var: IGWout
@@ -135,7 +135,7 @@
         vpc_id: "{{ vpcout.vpc.id }}"
         region: "{{ region }}"
         resource_tags:
-            Name: vprofle-RT
+            Name: vprofile-RT
         subnets:
         - "{{ pubsub1out.subnet.id }}"
         - "{{ pubsub2out.subnet.id }}"
@@ -161,7 +161,7 @@
         vpc_id: "{{ vpcout.vpc.id }}"
         region: "{{ region }}"
         resource_tags:
-            Name: vprofle-Nat-RT
+            Name: vprofile-Nat-RT
         subnets:
         - "{{ prisub1out.subnet.id }}"
         - "{{ prisub2out.subnet.id }}"
@@ -171,23 +171,25 @@
           gateway_id: "{{ NATGWout.nat_gateway_id }}"
       register: priRTout
     
-    - debug:
-        var: "{{ item }}"
-      loop:
-       - vpcout
-       - pubsub1out
-       - pubsub2out
-       - pubsub3out
-       - prisub1out
-       - prisub2out
-       - prisub3out
-       - IGWout
-       - pubRTout
-       - NATGWout
-       - priRTout
+    #- debug:
+        #var: "{{ item }}"
+      #loop:
+       #- vpcout
+       #- pubsub1out
+       #- pubsub2out
+       #- pubsub3out
+       #- prisub1out
+       #- prisub2out
+       #- prisub3out
+       #- IGWout
+       #- pubRTout
+       #- NATGWout
+       #- priRTout
+       #above will print var value on console
 #you can store all these varibale into a file or you want to use instently use fact module
 # fact: varible store use module which can fact for us to use runtime
-    - set_fact: 
+    
+    - set_fact:
         vpc_id: "{{ vpcout.vpc.id }}"
         pubsub1: "{{ pubsub1out.subnet.id }}"
         pubsub2: "{{ pubsub2out.subnet.id }}"
@@ -202,6 +204,6 @@
         cacheable: yes #variable added to fact cache
     
     - name: create variable file
-      copy: 
-        content: " vpc_id: {{ vpcout.vpc.id }} \n pubsub1: {{ pubsub1out.subnet.id }} \n pubsub2: {{ pubsub2out.subnet.id }} \n pubsub3: {{ pubsub3out.subnet.id }} \n prisub1: {{ prisub1out.subnet.id }} \n prisub2: {{ prisub2out.subnet.id }} \n prisub3: {{ prisub3out.subnet.id }} \n ig_id: {{ IGWout.gateway_id }} \n pub_rt_id: {{ pubRTout.route_table.id }} \n nat_gw_id: {{ NATGWout.nat_gateway_id }} \n pri_rt_id: {{ priRTout.route_table.id }} "
-        dest: vars/output_vars
+      copy:
+         content: "region: {{ region }}\nvpc_id: {{ vpcout.vpc.id }}\npubsub1: {{ pubsub1out.subnet.id }}\npubsub2: {{ pubsub2out.subnet.id }}\npubsub3: {{ pubsub3out.subnet.id }}\nprisub1: {{ prisub1out.subnet.id }}\nprisub2: {{ prisub2out.subnet.id }}\nprisub3: {{ prisub3out.subnet.id }}\nig_id: {{ IGWout.gateway_id }}\npub_rt_id: {{ pubRTout.route_table.id }}\nnat_gw_id: {{ NATGWout.nat_gateway_id }}\npri_rt_id: {{ priRTout.route_table.id }}\n "
+         dest: vars/vpc_output_vars
