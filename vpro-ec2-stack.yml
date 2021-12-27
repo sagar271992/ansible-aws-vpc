@@ -66,8 +66,8 @@
           to_port: 22
           group_id: "{{bastionSGid}}"
           rule_desc: bastion allow all on port 22
-          when: vprofile_stack_SGout.changed
       register: vprofile_stack_SGout
+      when: vprofile_stack_SGout.changed
     
     #create security group for ec2 instances to talk each other
     - name: update security group with its own id
