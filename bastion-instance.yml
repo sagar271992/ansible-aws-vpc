@@ -2,30 +2,34 @@
   connection: local
   gather_facts: False
   tasks:
-    #import variable file
-    - name: import bastion setup variable files
-      include_vars: vars/bastion_setup
-    #import vpc variable file
+    
+    # Import vpc variables files
     - name: import vpc variable files
-      include_vars: vars/output_vars
-
-    #create ec2 key pair 
-    - name: create ec2 key
+      include_vars: vars/vpc_output_vars
+    
+    # Import variables files
+    - name: import vpc variable files
+      include_vars: vars/vpc_setup
+    
+    # we need a key to login to our instances
+    - name: create ec2 bastion host login key
       ec2_key:
-        name: my_bastion_host_keypair
+        name: bastion_keypair
         region: "{{ region }}"
       register: keyout
+    #- debug:
+       # var: keyout
     
-    # and store taht key
-    - name: store login key
+    # and store that key
+    - name: Save private key into file bastion-keypair.pem
       copy:
         content: "{{ keyout.key.private_key }}"
-        destination: ./bastion-key.pem
+        dest: "./bastion-keypair.pem"
         mode: 0600
       when: keyout.changed
       
     #create security group for basten host  
-    - name: create security group for basten host 
+    - name: create security group for bastion host 
       ec2_group:
         name: bastion-host
         description: allow 22 port from anywhere and all port within sg
@@ -38,16 +42,16 @@
           to_port: 22
           cidr_ip: "{{ MYIP }}"
       register: bastionSGout
-    - debug:
-        var: bastionSGout
+    #- debug:
+        #var: bastionSGout
    
     #create ec2-instance basten host
-    - name: creating baston host
+    - name: creating bastion host
       ec2:
-        key_name: my_bastion_host_keypair
+        key_name: bastion_keypair
         region: "{{ region }}"
         instance_type: t2.micro
-        image: "{{ basten_ami }}"
+        image: "{{ bastion_ami }}"
         wait: yes
         wait_timeout: 300
         instance_tags:
@@ -62,3 +66,11 @@
         group_id: "{{ bastionSGout.group_id }}"
         vpc_subnet_id: "{{  pubsub1 }}"
       register: bastion_host_out
+
+    #store the required variables in vpc_output_vars
+    - name: Insert/Update "BastionSGid" in vars/vpc_output_vars
+      blockinfile:
+        path: vars/vpc_output_vars
+        backup: no
+        block: |
+          bastionSGid: {{ bastionSGout.group_id }}
